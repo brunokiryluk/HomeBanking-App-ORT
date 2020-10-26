@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj": {}
+    "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj": {
+    "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
+        "projectUniqueName": "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
         "projectName": "EFDBFHomeBanking",
-        "projectPath": "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
+        "projectPath": "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
         "packagesPath": "C:\\Users\\Mira_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\obj\\",
+        "outputPath": "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mira_\\AppData\\Roaming\\NuGet\\NuGet.Config",

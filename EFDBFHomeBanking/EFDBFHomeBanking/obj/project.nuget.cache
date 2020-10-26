@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jnwMPtcU5Fbwtg6UerH8g2Zj7EFq2T9SH9SEFGmqnAAy59DN9+B6FLsa3oXHcVLlA53bcRnlUIeKpBAFBZDu/w==",
+  "dgSpecHash": "g1gjbzcVZdnPJSt2AeNssVLy1e6sUJ4/dHv1vtRaghPEymuVTMG0C2lCiKBE2sbhO37jVmwFJv9M9txiv2dRqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mira_\\source\\repos\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
+  "projectFilePath": "C:\\Users\\Mira_\\source\\repos\\HomeBanking-App-ORT\\EFDBFHomeBanking\\EFDBFHomeBanking\\EFDBFHomeBanking.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mira_\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Mira_\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

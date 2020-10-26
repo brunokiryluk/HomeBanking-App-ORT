@@ -11,6 +11,7 @@ namespace EFDBFHomeBanking.Models
         public String telefono { get; set; }
         public float balance { get; set; }
         // TODO: add movements
+        public Movement[] movements { get; set; }
 
     }
 }

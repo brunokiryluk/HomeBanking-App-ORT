@@ -90,6 +90,62 @@ namespace EFDBFHomeBanking.Migrations
                     b.ToTable("users");
                 });
 
+            modelBuilder.Entity("EFDBFHomeBanking.Models.Movement", b =>
+                {
+                    b.Property<int>("movementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("accountId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<float>("value")
+                        .HasColumnType("real");
+
+                    b.HasKey("movementId");
+
+                    b.HasIndex("accountId");
+
+                    b.ToTable("Movement");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Movement");
+                });
+
+            modelBuilder.Entity("EFDBFHomeBanking.Models.MovementClasses.Deposit", b =>
+                {
+                    b.HasBaseType("EFDBFHomeBanking.Models.Movement");
+
+                    b.HasDiscriminator().HasValue("Deposit");
+                });
+
+            modelBuilder.Entity("EFDBFHomeBanking.Models.MovementClasses.Extract", b =>
+                {
+                    b.HasBaseType("EFDBFHomeBanking.Models.Movement");
+
+                    b.HasDiscriminator().HasValue("Extract");
+                });
+
+            modelBuilder.Entity("EFDBFHomeBanking.Models.MovementClasses.Transfer", b =>
+                {
+                    b.HasBaseType("EFDBFHomeBanking.Models.Movement");
+
+                    b.Property<bool>("checkedDeposit")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("checkedExtraction")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("originAccountId")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Transfer");
+                });
+
             modelBuilder.Entity("EFDBFHomeBanking.Models.Account", b =>
                 {
                     b.HasOne("EFDBFHomeBanking.Models.Client", null)
@@ -102,6 +158,13 @@ namespace EFDBFHomeBanking.Migrations
                     b.HasOne("EFDBFHomeBanking.Models.Bank", null)
                         .WithMany("clients")
                         .HasForeignKey("bankId");
+                });
+
+            modelBuilder.Entity("EFDBFHomeBanking.Models.Movement", b =>
+                {
+                    b.HasOne("EFDBFHomeBanking.Models.Account", null)
+                        .WithMany("movements")
+                        .HasForeignKey("accountId");
                 });
 #pragma warning restore 612, 618
         }
