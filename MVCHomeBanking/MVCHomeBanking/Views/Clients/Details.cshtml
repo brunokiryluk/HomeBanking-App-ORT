@@ -1,0 +1,89 @@
+﻿@model MVCHomeBanking.Models.Client
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.username)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.password)
+        </dd>
+    </dl>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.accounts.FirstOrDefault().accountId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.accounts.FirstOrDefault().telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.accounts.FirstOrDefault().balance)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.accounts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.accountId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.balance)
+                    </td>
+                    <td>
+                        <a asp-controller="Accounts" asp-action="Edit" asp-route-id="@item.accountId">Edit</a> |
+                        <a asp-controller="Accounts" asp-action="Details" asp-route-id="@item.accountId">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.nroDoc">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

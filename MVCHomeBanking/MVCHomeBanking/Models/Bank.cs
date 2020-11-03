@@ -13,7 +13,7 @@ namespace MVCHomeBanking.Models
         public int bankId { get; set; }
         public String address { get; set; }
         public String phone { get; set; }
-        public Client[] clients { get; set; }
-        // ¿or ArrayList clients?
+        public List<Client> clients { get; set; }
+
     }
 }

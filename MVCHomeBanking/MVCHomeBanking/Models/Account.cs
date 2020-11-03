@@ -17,7 +17,7 @@ namespace MVCHomeBanking.Models
         public String telefono { get; set; }
         public float balance { get; set; }
         // TODO: add movements
-        public Movement[] movements { get; set; }
+        public List<Movement> movements { get; set; }
 
     }
 }
