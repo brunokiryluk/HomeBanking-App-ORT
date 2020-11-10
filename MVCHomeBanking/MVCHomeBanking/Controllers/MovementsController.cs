@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCHomeBanking.Context;
 using MVCHomeBanking.Models;
+using MVCHomeBanking.Models.MovementsEnums;
 
 namespace MVCHomeBanking.Controllers
 {
@@ -44,8 +45,14 @@ namespace MVCHomeBanking.Controllers
         }
 
         // GET: Movements/Create
-        public IActionResult Create()
+        public IActionResult Create(string id)
         {
+
+            List<TYPE_MOVEMENT> myTypes = Enum.GetValues(typeof(TYPE_MOVEMENT)).Cast<TYPE_MOVEMENT>().ToList();
+            ViewBag.RequiredType = new SelectList(myTypes);
+
+            ViewBag.originAccount = id;
+
             return View();
         }
 
@@ -58,6 +65,63 @@ namespace MVCHomeBanking.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var originAccount = await _context.accounts.Include(a => a.movements)
+                                .FirstOrDefaultAsync(m => m.accountId == movement.originAccountId);
+                if (originAccount == null)
+                {
+                    return NotFound();
+                }
+
+
+                if (movement.type == TYPE_MOVEMENT.DEPOSIT)
+                {
+                    originAccount.balance = originAccount.balance + movement.value;
+                    movement.status = STATUS_MOVEMENT.DEPOSIT_OK;
+                }
+                else if (movement.type == TYPE_MOVEMENT.EXTRACT)
+                {
+                    if (originAccount.balance > movement.value)
+                    {
+                        originAccount.balance = originAccount.balance - movement.value;
+                        movement.status = STATUS_MOVEMENT.EXTRACT_OK;
+                    } else
+                    {
+                        movement.status = STATUS_MOVEMENT.EXTRACT_FAILED;
+                    }
+                }
+                else if (movement.type == TYPE_MOVEMENT.TRANSFER)
+                {
+                    var destinationAccount = await _context.accounts.Include(a => a.movements)
+                                .FirstOrDefaultAsync(m => m.accountId == movement.destinationAccountId);
+
+                    if (destinationAccount == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (destinationAccount.balance > movement.value)
+                    {
+                        originAccount.balance -= movement.value;
+                        destinationAccount.balance += movement.value;
+                        movement.status = STATUS_MOVEMENT.TRANSFER_OK;
+
+                        Movement mov2 = new Movement();
+                        mov2.value = movement.value;
+                        mov2.type = movement.type;
+                        mov2.status = movement.status;
+                        mov2.originAccountId = movement.originAccountId;
+                        mov2.destinationAccountId = movement.destinationAccountId;
+
+                        destinationAccount.movements.Add(mov2);
+                        _context.Add(mov2);
+                    } else
+                    {
+                        movement.status = STATUS_MOVEMENT.TRANSFER_FAILED;
+                    }
+                }
+
+                originAccount.movements.Add(movement);
                 _context.Add(movement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -17,8 +17,8 @@ namespace MVCHomeBanking.Models
         public TYPE_MOVEMENT type { get; set; }
 
         public STATUS_MOVEMENT status { get; set; }
-        public String originAccountId { get; set; }
-        public String destinationAccountId { get; set; }
+        public string originAccountId { get; set; }
+        public string destinationAccountId { get; set; }
 
 
     }

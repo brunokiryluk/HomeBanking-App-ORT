@@ -1,58 +1,45 @@
 ﻿@model MVCHomeBanking.Models.Movement
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Realizar un movimiento";
+    Layout = "doMovement";
 }
 
-<h1>Create</h1>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#typeSelected').on('change', function () {
-            if (this.value == 'TRANSFER')
-            {
-                $("#destionationAccount").show();
-            }
-            else {
-                $("#destionationAccount").hide();
-            }
-        });
-    });
-</script>
-
+<h1>View</h1>
 
 <h4>Movement</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="View">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="value" class="control-label"></label>
                 <input asp-for="value" class="form-control" />
                 <span asp-validation-for="value" class="text-danger"></span>
             </div>
-            <div class="form-group" id="selectionOfType">
+            <div class="form-group">
                 <label asp-for="type" class="control-label"></label>
-                <select asp-for="type" name="type" id="typeSelected"
-                        asp-items="ViewBag.RequiredType">
-                    
-                </select>
+                <select asp-for="type" class="form-control"></select>
+                <span asp-validation-for="type" class="text-danger"></span>
             </div>
-
-            <div class="form-group" style="display:none;">
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+                <select asp-for="status" class="form-control"></select>
+                <span asp-validation-for="status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="originAccountId" class="control-label"></label>
-                <input asp-for="originAccountId" class="form-control" value="@ViewBag.originAccount" />
+                <input asp-for="originAccountId" class="form-control" />
                 <span asp-validation-for="originAccountId" class="text-danger"></span>
             </div>
-            <div class="form-group" id="destionationAccount" style="display:none;">
+            <div class="form-group">
                 <label asp-for="destinationAccountId" class="control-label"></label>
                 <input asp-for="destinationAccountId" class="form-control" />
                 <span asp-validation-for="destinationAccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="doMovement" class="btn btn-primary" />
             </div>
         </form>
     </div>

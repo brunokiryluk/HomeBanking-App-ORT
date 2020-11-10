@@ -15,5 +15,6 @@ namespace MVCHomeBanking.Models.MovementsEnums
 
         TRANSFER_OK,
         TRANSFER_FAILED
+
     }
 }

@@ -19,6 +19,14 @@ namespace MVCHomeBanking.Controllers
             _context = context;
         }
 
+        // --------------------------------------------------------------
+        // Custom code begins
+
+
+
+
+        // Custom code ends
+        // --------------------------------------------------------------
 
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(string id)

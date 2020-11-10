@@ -70,6 +70,7 @@ namespace MVCHomeBanking.Controllers
 
                 Movement mov = new Movement();
                 mov.value = 2000;
+                mov.originAccountId = acc.accountId;
                 mov.destinationAccountId = acc.accountId;
                 mov.type = Models.MovementsEnums.TYPE_MOVEMENT.DEPOSIT;
                 mov.status = Models.MovementsEnums.STATUS_MOVEMENT.DEPOSIT_OK;
