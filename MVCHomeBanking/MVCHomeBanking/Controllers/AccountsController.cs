@@ -38,10 +38,18 @@ namespace MVCHomeBanking.Controllers
 
             var account = await _context.accounts.Include(a => a.movements)
                 .FirstOrDefaultAsync(m => m.accountId == id);
-            if (account == null)
+
+
+            var clientOrigin = _context.users.Where(acc => acc.accounts.Contains(account)).FirstOrDefault();
+
+
+            if (account == null || clientOrigin == null)
             {
                 return NotFound();
             }
+
+            ViewBag.clientOrigin = clientOrigin.nroDoc;
+
 
             return View(account);
         }

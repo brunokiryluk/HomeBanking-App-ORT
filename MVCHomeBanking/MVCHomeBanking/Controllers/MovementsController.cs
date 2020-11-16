@@ -36,10 +36,17 @@ namespace MVCHomeBanking.Controllers
 
             var movement = await _context.movements
                 .FirstOrDefaultAsync(m => m.movementId == id);
-            if (movement == null)
+
+            var accountOrigin = _context.accounts.Where(acc => acc.movements.Contains(movement)).FirstOrDefault();
+
+
+            if (movement == null || accountOrigin == null)
             {
                 return NotFound();
             }
+
+            ViewBag.accountOrigin = accountOrigin.accountId;
+
 
             return View(movement);
         }
@@ -124,7 +131,7 @@ namespace MVCHomeBanking.Controllers
                 originAccount.movements.Add(movement);
                 _context.Add(movement);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = movement.movementId });
             }
             return View(movement);
         }

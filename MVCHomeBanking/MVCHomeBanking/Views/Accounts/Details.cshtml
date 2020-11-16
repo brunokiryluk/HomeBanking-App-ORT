@@ -72,5 +72,5 @@
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.accountId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details" asp-route-id="@ViewBag.clientOrigin" asp-controller="Clients">Back to Client</a>
 </div>
