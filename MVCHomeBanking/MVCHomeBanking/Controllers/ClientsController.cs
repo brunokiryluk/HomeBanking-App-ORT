@@ -156,7 +156,7 @@ namespace MVCHomeBanking.Controllers
                 || clientForm.username == null
                 || clientForm.password == null)
             {
-                // Do Something to show the error
+                ViewBag.showError = "Formulario incompleto. Por favor llené los campos para continuar";
                 return Login();
             }
 
@@ -167,15 +167,16 @@ namespace MVCHomeBanking.Controllers
 
             if (client == null)
             {
-                // Do something to show the error :)
+                ViewBag.showError = "No se pudo encontrar al cliente";
                 return Login();
             }
 
             if (!client.password.Equals(clientForm.password))
             {
-                // Do something to show the error :)
+                ViewBag.showError = "Usuario/password erroneo";
                 return Login();
             }
+
 
             return RedirectToAction("Details", new { id = client.nroDoc });
 
