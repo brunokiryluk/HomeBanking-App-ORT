@@ -9,51 +9,39 @@
 <p>
     <a asp-action="Create">Crear nuevo cliente</a>
 </p>
-<table class="table">
-    <thead>
+
+@*TABLA CUSTOM*@
+<table class="table table-hover">
+    <thead class="thead-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.password)
-            </th>
+            <th scope="col">#</th>
+            <th scope="col"> @Html.DisplayNameFor(model => model.name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.surname)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.phone)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.username)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.password)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @{int i = 1;}
+        @foreach (var item in Model)
+        {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.password)
-            </td>
+            <th scope="row">@i</th>
+            @{i++;}
+            <td>@Html.DisplayFor(modelItem => item.name)</td>
+            <td>@Html.DisplayFor(modelItem => item.surname)</td>
+            <td>@Html.DisplayNameFor(model => model.phone)</td>
+            <td>@Html.DisplayFor(modelItem => item.username)</td>
+            <td> @Html.DisplayFor(modelItem => item.password)</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.nroDoc">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.nroDoc">Mis datos</a> |
                 <a asp-action="Delete" asp-route-id="@item.nroDoc">Borrar</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
+@*TABLA CUSTOM*@
