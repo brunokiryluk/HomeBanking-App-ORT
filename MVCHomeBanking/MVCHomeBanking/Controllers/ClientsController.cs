@@ -84,7 +84,7 @@ namespace MVCHomeBanking.Controllers
                 _context.Add(mov);
                 _context.Add(client);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = client.nroDoc });
             }
             return View(client);
         }
@@ -140,34 +140,47 @@ namespace MVCHomeBanking.Controllers
             return View(client);
         }
 
-        // GET: Clients/Delete/5
-        public async Task<IActionResult> Delete(string id)
+
+        public IActionResult Login()
         {
-            if (id == null)
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("username,password")] Client clientForm)
+        {
+
+            if (clientForm == null 
+                || clientForm.username == null
+                || clientForm.password == null)
             {
-                return NotFound();
+                // Do Something to show the error
+                return Login();
             }
 
             var client = await _context.users
-                .FirstOrDefaultAsync(m => m.nroDoc == id);
+                .FirstOrDefaultAsync(m => m.username == clientForm.username);
+
+            Console.WriteLine(client);
+
             if (client == null)
             {
-                return NotFound();
+                // Do something to show the error :)
+                return Login();
             }
 
-            return View(client);
+            if (!client.password.Equals(clientForm.password))
+            {
+                // Do something to show the error :)
+                return Login();
+            }
+
+            return RedirectToAction("Details", new { id = client.nroDoc });
+
         }
 
-        // POST: Clients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var client = await _context.users.FindAsync(id);
-            _context.users.Remove(client);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         private bool ClientExists(string id)
         {
