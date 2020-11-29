@@ -24,30 +24,37 @@
     {
         if (mov.type == MVCHomeBanking.Models.MovementsEnums.TYPE_MOVEMENT.DEPOSIT)
         {
-            
-            @:cont += @mov.value;
-        }
-        else if (mov.type == MVCHomeBanking.Models.MovementsEnums.TYPE_MOVEMENT.EXTRACT)
-        {
-            @:cont -= @mov.value;
-        }
-        else if (mov.type == MVCHomeBanking.Models.MovementsEnums.TYPE_MOVEMENT.TRANSFER)
-        {
-            if (Model.accountId == mov.originAccountId)
-            {
-                @:cont -= @mov.value;
-            } else
+            if (mov.status == MVCHomeBanking.Models.MovementsEnums.STATUS_MOVEMENT.DEPOSIT_OK)
             {
                 @:cont += @mov.value;
             }
         }
+        else if (mov.type == MVCHomeBanking.Models.MovementsEnums.TYPE_MOVEMENT.EXTRACT)
+        {
+            if (mov.status == MVCHomeBanking.Models.MovementsEnums.STATUS_MOVEMENT.EXTRACT_OK)
+            {
+                @:cont -= @mov.value;
+            }
+        }
+        else if (mov.type == MVCHomeBanking.Models.MovementsEnums.TYPE_MOVEMENT.TRANSFER)
+        {
+            if (mov.status == MVCHomeBanking.Models.MovementsEnums.STATUS_MOVEMENT.TRANSFER_OK)
+            {
+                if (Model.accountId == mov.originAccountId)
+                {
+                    @:cont -= @mov.value;
+                } else
+                {
+                    @:cont += @mov.value;
+                }
+            }
+
+        }
 
 
         @:items.push(cont);
-        @:labels.push("@mov.type")
+        @:labels.push("@mov.status")
     }
-
-    alert(items);
 
     var chartData = {
         labels: labels,
@@ -90,7 +97,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <canvas id="chLine"></canvas>
@@ -134,6 +141,9 @@
                 @Html.DisplayNameFor(model => model.movements.FirstOrDefault().type)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.movements.FirstOrDefault().status)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.movements.FirstOrDefault().value)
             </th>
 
@@ -143,26 +153,30 @@
     <tbody>
         @foreach (var item in Model.movements)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.movementId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.value)
-                </td>
-                <td>
-                    <a asp-controller="Movements" asp-action="Details" asp-route-id="@item.movementId">Details</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.movementId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.value)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-controller="Movements" asp-action="Details" asp-route-id="@item.movementId">Detalles</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.accountId">Edit</a> |
-    <a asp-action="Details" asp-route-id="@ViewBag.clientOrigin" asp-controller="Clients">Back to Client</a>
+    <a  class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.accountId">Editar cuenta</a> |
+    <a  class="btn btn-primary" asp-action="Details" asp-route-id="@ViewBag.clientOrigin" asp-controller="Clients">Volver al cliente</a> |
+    <a  class="btn btn-secondary" asp-action="Create" asp-route-id="@Model.accountId" asp-controller="Movements">Crear movimiento</a>
 </div>

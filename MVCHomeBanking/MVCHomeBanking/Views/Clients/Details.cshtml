@@ -73,8 +73,8 @@
                         @Html.DisplayFor(modelItem => item.balance)
                     </td>
                     <td>
-                        <a asp-controller="Accounts" asp-action="Edit" asp-route-id="@item.accountId">Edit</a> |
-                        <a asp-controller="Accounts" asp-action="Details" asp-route-id="@item.accountId">Details</a> |
+                        <a class="btn btn-secondary" asp-controller="Accounts" asp-action="Edit" asp-route-id="@item.accountId">Editar cuenta</a> |
+                        <a class="btn btn-info" asp-controller="Accounts" asp-action="Details" asp-route-id="@item.accountId">Detalles</a> |
                     </td>
                 </tr>
             }
@@ -84,6 +84,5 @@
 
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.nroDoc">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.nroDoc">Editar cliente</a>
 </div>
