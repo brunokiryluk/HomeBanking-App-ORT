@@ -122,7 +122,7 @@ namespace MVCHomeBanking.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = account.accountId });
             }
             return View(account);
         }

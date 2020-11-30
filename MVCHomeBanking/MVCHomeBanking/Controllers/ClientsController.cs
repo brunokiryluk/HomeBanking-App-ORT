@@ -59,9 +59,16 @@ namespace MVCHomeBanking.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (ClientUsernameExists(client.username, ""))
+                {
+                    ViewBag.showUsernameError = "Usuario incorrecto y/o ya utilizado";
+                    return View(client);
+                }
+
                 Account acc = new Account();
                 acc.balance = 2000;
                 acc.direccion = "EMPTY";
+                acc.telefono = client.phone;
                 acc.movements = new List<Movement>();
 
                 _context.Add(acc);
@@ -121,8 +128,16 @@ namespace MVCHomeBanking.Controllers
             {
                 try
                 {
-                    _context.Update(client);
-                    await _context.SaveChangesAsync();
+                    if (!ClientUsernameExists(client.username, client.nroDoc))
+                    {
+                        _context.Update(client);
+                        await _context.SaveChangesAsync();
+                    } else
+                    {
+                        ViewBag.showErrorUsername = "Usuario incorrecto y/o ya utilizado";
+                        return View(client);
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,7 +150,7 @@ namespace MVCHomeBanking.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = client.nroDoc });
             }
             return View(client);
         }
@@ -186,6 +201,11 @@ namespace MVCHomeBanking.Controllers
         private bool ClientExists(string id)
         {
             return _context.users.Any(e => e.nroDoc == id);
+        }
+
+        private bool ClientUsernameExists(string username, string nroDoc)
+        {
+            return _context.users.Any(u => u.username == username && u.nroDoc != nroDoc);
         }
     }
 }
